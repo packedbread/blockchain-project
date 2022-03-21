@@ -28,7 +28,10 @@ def main():
     while True:
         try:
             command = input('Enter command [add|get|take|transfer]: ').strip()
-            if command.startswith('add'):
+            if command.startswith('add fixed'):
+                _, _, expiration_timestamp, name = command.split(' ', 3)
+                _ = add_product(expiration_timestamp, name)
+            elif command.startswith('add'):
                 _, fresh_seconds, name = command.split(' ', 2)
                 expiration_timestamp = int(time.time()) + int(fresh_seconds)
                 _ = add_product(expiration_timestamp, name)
