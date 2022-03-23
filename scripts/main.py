@@ -20,9 +20,9 @@ def take_off_shelf(contract_id: str) -> None:
     product = Product.at(contract_id)
     product.takeOffShelf()
 
-def transfer_ownership(contract_id: str, recepient_addr: str) -> None:
+def transfer_ownership(contract_id: str, sender_addr: str, recepient_addr: str) -> None:
     product = Product.at(contract_id)
-    product.transferOwnership(recepient_addr)
+    product.transferOwnership(recepient_addr, {'from': sender_addr})
 
 def main():
     while True:
@@ -40,8 +40,8 @@ def main():
                 _, contract_id = command.split(' ', 1)
                 take_off_shelf(contract_id)
             elif command.startswith('transfer'):
-                _, contract_id, recepient_addr = command.split(' ', 2)
-                transfer_ownership(contract_id, recepient_addr)
+                _, contract_id, sender_id, recepient_addr = command.split(' ', 3)
+                transfer_ownership(contract_id, sender_id, recepient_addr)
         except Exception as e:
             print('Error during command execution:', e)
 
